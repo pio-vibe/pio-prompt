@@ -1,6 +1,6 @@
-import Link from 'next/link';
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
 
 // Simple prompt cards data
 const promptCards = [
@@ -27,12 +27,13 @@ export default function Builder() {
 
   const generate = () => {
     let result = selected.map(sid => {
-      const card = promptCards.find(c => c.id === sid)!;
+      const card = promptCards.find(c => c.id === sid);
+      if (!card) return '';
       let text = card.base;
       card.params.forEach(p => {
-        text = text.replace(`{${p}}`, params[p] ||`);
+        text = text.replace('{' + p + '}', params[p] || '');
       });
-      return `## `[${p}] ${card.icon} ${card.name}\n${text}`;
+      return '## ' + card.icon + ' ' + card.name + '\n' + text;
     }).join('\n\n---\n\n');
     setOutput(result);
   };
@@ -49,7 +50,7 @@ export default function Builder() {
           <div className="grid grid-cols-2 gap-3">
             {promptCards.map(card => (
               <button key={card.id} onClick={() => toggle(card.id)}
-                className={`p-4 rounded-xl text-left transition ${selected.includes(card.id) ? 'bg-blue-600 text-white' : 'bg-white border shadow-sm hover:bg-slate-50'}`}>
+                className={'p-4 rounded-xl text-left transition ' + (selected.includes(card.id) ? 'bg-blue-600 text-white' : 'bg-white border shadow-sm hover:bg-slate-50')}>
                 <span className="text-2xl">{card.icon}</span>
                 <div className="font-medium">{card.name}</div>
                 <div className="text-xs opacity-70">{card.tier}</div>
@@ -62,9 +63,10 @@ export default function Builder() {
             <div className="bg-white p-4 rounded-xl border shadow-sm mb-4">
               <h3 className="font-semibold mb-3">Configure</h3>
               {selected.flatMap(sid => {
-                const card = promptCards.find(c => c.id === sid)!;
+                const card = promptCards.find(c => c.id === sid);
+                if (!card) return [];
                 return card.params.map(p => (
-                  <div key={`${sid}-${p}`} className="mb-2">
+                  <div key={sid + '-' + p} className="mb-2">
                     <label className="block text-sm text-slate-600 mb-1">{p}</label>
                     <input type="text" value={params[p] || ''} onChange={e => setParams({...params, [p]: e.target.value})}
                       className="w-full px-3 py-2 rounded border" placeholder={p} />
