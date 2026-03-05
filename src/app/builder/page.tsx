@@ -2,17 +2,17 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Button } from "@/components/Calculator/Button";
-import { Keypad } from "@/components/Calculator/Keypad";
-import { CalculatorDisplay } from "@/components/Calculator/Display";
-import { calculate } from "@/utils/calculatorLogic";
+import { Button } from "../../components/Calculator/Button";
+import { Keypad } from "../../components/Calculator/Keypad";
+import { CalculatorDisplay } from "../../components/Calculator/Display";
+import { calculate } from "../../utils/calculatorLogic";
 
 // Simple prompt cards data
 const promptCards = [
   { id: 'email', name: 'Email Writer', icon: '📧', tier: 'free', base: 'Write a {tone} email about {topic}', params: ['tone', 'topic'] },
   { id: 'todo', name: 'To-do Generator', icon: '📋', tier: 'free', base: 'Create a to-do list for {goal}', params: ['goal'] },
   { id: 'social', name: 'Social Post', icon: '📱', tier: 'free', base: 'Write a {platform} post about {topic}', params: ['platform', 'topic'] },
-  { id: 'blog', name: 'Blog Post', icon: '📰', tieri: 'starter', base: 'Write a blog post about {topic}', params: ['topic'] },
+  { id: 'blog', name: 'Blog Post', icon: '📰', tier: 'starter', base: 'Write a blog post about {topic}', params: ['topic'] },
   { id: 'code', name: 'Code Review', icon: '💻', tier: 'free', base: 'Review this code: {code}', params: ['code'] },
   { id: 'summary', name: 'Summary', icon: '📚', tier: 'free', base: 'Summarize: {content}', params: ['content'] },
 ];
@@ -44,7 +44,7 @@ export default function BuilderPage() {
   };
 
   return (
-    <div className='min-h-screen bg-[#0a0a0a] text-whi'>
+    <div className='min-h-screen bg-[#0a0a0a] text-white'>
       <header className='bg-zinc-900/50 border-b border-zinc-800 backdrop-blur-xl sticky top-0 z-50'>
         <div className='max-w-7xl mx-auto px-6 py-4 flex items-center justify-between'>
           <Link href='/' className='flex items-center gap-3'>
